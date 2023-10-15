@@ -16,7 +16,7 @@ function prepareApp(): Express {
 
     app.use(errorHandler);
 
-    app.listen(3000, () => { logger.info("Server listening on port 3000.") });
+    app.listen(process.env.APP_PORT, () => { logger.info(`Server listening on port ${process.env.APP_PORT}.`) });
 
     return app;
 }
