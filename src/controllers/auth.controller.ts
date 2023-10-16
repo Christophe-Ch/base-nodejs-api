@@ -5,8 +5,8 @@ import Joi from 'joi';
 import { ValidationError } from '../errors';
 
 export const login: Handler = async (req: Request, res: Response) => {
-    const token = useCases.generateToken(req.user as IUser);
-    res.json({ token });
+    const result = await useCases.generateToken(req.user as IUser);
+    res.json(result);
 }
 
 export const signup: Handler = async (req: Request, res: Response, next: NextFunction) => {
@@ -15,16 +15,32 @@ export const signup: Handler = async (req: Request, res: Response, next: NextFun
             email: Joi.string().email().required(),
             password: Joi.string().min(8).max(255).required()
         });
-
         const { error, value } = schema.validate(req.body);
-
         if (error) {
             throw new ValidationError(error);
         }
 
-        const token = await useCases.signup(value.email, value.password);
+        const result = await useCases.signup(value.email, value.password);
 
-        return res.json({ token });
+        return res.json(result);
+    } catch (err) {
+        next(err);
+    }
+}
+
+export const refresh: Handler = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const schema = Joi.object({
+            refreshToken: Joi.string().uuid().required(),
+        });
+        const { error, value } = schema.validate(req.body);
+        if (error) {
+            throw new ValidationError(error);
+        }
+
+        const result = await useCases.refreshToken(value.refreshToken);
+
+        return res.json(result);
     } catch (err) {
         next(err);
     }
