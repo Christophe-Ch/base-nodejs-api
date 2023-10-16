@@ -4,7 +4,7 @@ import Joi from 'joi';
 import { ValidationError } from '../errors';
 import { NotFoundError } from '../errors/not-found.error';
 
-export const findAll: Handler = async (req: Request, res: Response, next: NextFunction) => {
+export const findAll: Handler = async (_: Request, res: Response, next: NextFunction) => {
     try {
         const todos = await useCases.findAll();
         res.json({ todos });

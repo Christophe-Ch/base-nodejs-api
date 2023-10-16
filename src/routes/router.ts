@@ -1,4 +1,4 @@
-import * as core from "express-serve-static-core";
+import * as core from 'express-serve-static-core';
 
 export interface IRouter {
     router: core.Router,
