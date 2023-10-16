@@ -1,10 +1,10 @@
 import { NotFoundError } from '../../errors/not-found.error';
 import Todo from '../../models/Todo'
 
-export const deleteTodo = async (id: string): Promise<void> => {
+export const deleteTodo = async (id: string, userId: string): Promise<void> => {
     const todo = await Todo.findById(id);
 
-    if (!todo) {
+    if (!todo || todo.userId !== userId) {
         throw new NotFoundError(id);
     }
 

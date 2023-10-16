@@ -13,7 +13,7 @@ function setupJwtStrategy(): void {
     };
 
     passport.use(new JwtStrategy(strategyOptions, async (payload, done) => {
-        const user = await User.find({
+        const user = await User.findOne({
             email: payload.sub
         });
         if (!user) {

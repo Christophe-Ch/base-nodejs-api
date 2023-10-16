@@ -4,9 +4,9 @@ import Joi from 'joi';
 import { ValidationError } from '../errors';
 import { NotFoundError } from '../errors/not-found.error';
 
-export const findAll: Handler = async (_: Request, res: Response, next: NextFunction) => {
+export const findAll: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
-        const todos = await useCases.findAll();
+        const todos = await useCases.findAll(req.user!.id);
         res.json({ todos });
     } catch (err) {
         next(err);
@@ -18,14 +18,12 @@ export const find: Handler = async (req: Request, res: Response, next: NextFunct
         const schema = Joi.object({
             id: Joi.string().length(24).required()
         });
-
         const { error, value } = schema.validate(req.params);
-
         if (error) {
             throw new ValidationError(error);
         }
 
-        const todo = await useCases.find(value.id);
+        const todo = await useCases.find(value.id, req.user!.id);
         if (!todo) {
             throw new NotFoundError(value.id);
         }
@@ -41,14 +39,12 @@ export const create: Handler = async (req: Request, res: Response, next: NextFun
         const schema = Joi.object({
             title: Joi.string().max(255).required()
         });
-
         const { error, value } = schema.validate(req.body);
-
         if (error) {
             throw new ValidationError(error);
         }
 
-        const todo = await useCases.create(value.title);
+        const todo = await useCases.create(value.title, req.user!.id);
 
         return res.status(201).json(todo);
     } catch (err) {
@@ -61,9 +57,7 @@ export const update: Handler = async (req: Request, res: Response, next: NextFun
         const querySchema = Joi.object({
             id: Joi.string().length(24).required()
         });
-
         let { error, value } = querySchema.validate(req.params);
-
         if (error) {
             throw new ValidationError(error);
         }
@@ -72,14 +66,12 @@ export const update: Handler = async (req: Request, res: Response, next: NextFun
             title: Joi.string().max(255),
             done: Joi.bool()
         });
-
         ({ error, value } = bodySchema.validate(req.body));
-
         if (error) {
             throw new ValidationError(error);
         }
 
-        const todo = await useCases.update(req.params.id, value.title, value.done);
+        const todo = await useCases.update(req.params.id, value.title, value.done, req.user!.id);
 
         return res.status(200).json({ todo });
     } catch (err) {
@@ -92,14 +84,12 @@ export const deleteTodo: Handler = async (req: Request, res: Response, next: Nex
         const querySchema = Joi.object({
             id: Joi.string().length(24).required()
         });
-
         const { error, value } = querySchema.validate(req.params);
-
         if (error) {
             throw new ValidationError(error);
         }
 
-        await useCases.deleteTodo(value.id);
+        await useCases.deleteTodo(value.id, req.user!.id);
 
         return res.status(204).send();
     } catch (err) {

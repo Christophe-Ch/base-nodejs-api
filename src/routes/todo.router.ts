@@ -6,10 +6,10 @@ import passport from 'passport';
 const router = Router();
 
 router.get('/', passport.authenticate('jwt', { session: false }), controller.findAll);
-router.get('/:id', controller.find);
-router.post('/', controller.create);
-router.put('/:id', controller.update);
-router.delete('/:id', controller.deleteTodo);
+router.get('/:id', passport.authenticate('jwt', { session: false }), controller.find);
+router.post('/', passport.authenticate('jwt', { session: false }), controller.create);
+router.put('/:id', passport.authenticate('jwt', { session: false }), controller.update);
+router.delete('/:id', passport.authenticate('jwt', { session: false }), controller.deleteTodo);
 
 export default {
     router,
