@@ -2,7 +2,6 @@ import { Handler, NextFunction, Request, Response } from 'express';
 import * as useCases from '../use-cases/todo';
 import Joi from 'joi';
 import { ValidationError } from '../errors';
-import { NotFoundError } from '../errors/not-found.error';
 
 export const findAll: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
@@ -24,9 +23,6 @@ export const find: Handler = async (req: Request, res: Response, next: NextFunct
         }
 
         const todo = await useCases.find(value.id, req.user!.id);
-        if (!todo) {
-            throw new NotFoundError(value.id);
-        }
 
         return res.json({ todo });
     } catch (err) {

@@ -3,6 +3,6 @@ import jwt from 'jsonwebtoken';
 
 export const generateToken = (user: IUser): string => {
     const payload = { sub: user.email, iss: process.env.JWT_ISSUER, aud: process.env.JWT_AUDIENCE };
-    const token = jwt.sign(payload, process.env.JWT_SECRET!);
+    const token = jwt.sign(payload, process.env.JWT_SECRET!, { expiresIn: '30m' });
     return token;
 }

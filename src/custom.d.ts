@@ -1,8 +1,6 @@
-declare global {
-    namespace Express {
-        interface User {
-            id: string;
-            email: string;
-        }
+declare namespace Express {
+    export interface User {
+        id: string;
+        email: string;
     }
 }
