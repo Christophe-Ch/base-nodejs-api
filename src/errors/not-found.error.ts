@@ -1,5 +1,8 @@
 import { BaseError } from './base.error';
 
+/**
+ * Error used to indicate an item cannot be found for specified id.
+ */
 export class NotFoundError extends BaseError {
     constructor(private readonly id: string) {
         super();

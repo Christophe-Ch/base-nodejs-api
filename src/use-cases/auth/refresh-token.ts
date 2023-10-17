@@ -1,4 +1,4 @@
-import User, { IUser } from '../../models/User'
+import User from '../../models/User'
 import { NotFoundError } from '../../errors/not-found.error';
 import { ITokenResult, generateToken } from './generate-token';
 

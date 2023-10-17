@@ -4,11 +4,22 @@ import { IUser } from '../models/User';
 import Joi from 'joi';
 import { ValidationError } from '../errors';
 
+/**
+ * Handle login requests.
+ * @param req Request
+ * @param res Response
+ */
 export const login: Handler = async (req: Request, res: Response) => {
     const result = await useCases.generateToken(req.user as IUser);
     res.json(result);
 }
 
+/**
+ * Handle signup requests.
+ * @param req Request
+ * @param res Response
+ * @param next Next handler
+ */
 export const signup: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const schema = Joi.object({
@@ -28,6 +39,12 @@ export const signup: Handler = async (req: Request, res: Response, next: NextFun
     }
 }
 
+/**
+ * Handle JWT refresh requests.
+ * @param req Request
+ * @param res Response
+ * @param next Next handler
+ */
 export const refresh: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const schema = Joi.object({

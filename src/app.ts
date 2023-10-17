@@ -6,9 +6,15 @@ import { logHandler } from './middlewares/log.middleware';
 import { setupAuth } from './auth/setup';
 import mongoSanitize from 'express-mongo-sanitize';
 
+/**
+ * Create Express server.
+ * Calling this function also adds middlewares and routers, and calls auth setup.
+ * @returns Express server
+ */
 function prepareApp(): Express {
     const app = express();
 
+    app.use(mongoSanitize());
     app.use(logHandler);
     app.use(express.json());
 
@@ -17,7 +23,6 @@ function prepareApp(): Express {
     });
 
     app.use(errorHandler);
-    app.use(mongoSanitize());
 
     setupAuth();
 

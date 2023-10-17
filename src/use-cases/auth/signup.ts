@@ -4,6 +4,12 @@ import { getSalt } from '../../utils/hash';
 import { ITokenResult, generateToken } from './generate-token';
 import bcrypt from 'bcrypt';
 
+/**
+ * Create a new User with an email and a password.
+ * @param email Email
+ * @param password Password
+ * @returns The generated JWT and refresh tokens.
+ */
 export const signup = async (email: string, password: string): Promise<ITokenResult> => {
     const existingUser = await User.findOne({ email });
     if (existingUser) {

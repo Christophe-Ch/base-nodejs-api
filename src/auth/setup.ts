@@ -4,6 +4,9 @@ import { Strategy as LocalStrategy } from 'passport-local';
 import User from '../models/User';
 import bcrypt from 'bcrypt';
 
+/**
+ * Create the strategy used for checking and parsing the JWT sent by the client.
+ */
 function setupJwtStrategy(): void {
     const strategyOptions: StrategyOptions = {
         jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -24,6 +27,9 @@ function setupJwtStrategy(): void {
     }));
 }
 
+/**
+ * Create the strategy used for the login route to check the credentials.
+ */
 function setupLocalStrategy(): void {
     passport.use(new LocalStrategy({ usernameField: 'email' }, async (email, password, done) => {
         const user = await User.findOne({
@@ -41,6 +47,9 @@ function setupLocalStrategy(): void {
     }));
 }
 
+/**
+ * Provide both authentication strategies to passport.
+ */
 export const setupAuth = (): void => {
     setupJwtStrategy();
     setupLocalStrategy();

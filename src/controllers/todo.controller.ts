@@ -3,6 +3,12 @@ import * as useCases from '../use-cases/todo';
 import Joi from 'joi';
 import { ValidationError } from '../errors';
 
+/**
+ * Handle todo find all requests.
+ * @param req Request
+ * @param res Response
+ * @param next Next handler
+ */
 export const findAll: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const todos = await useCases.findAll(req.user!.id);
@@ -12,6 +18,12 @@ export const findAll: Handler = async (req: Request, res: Response, next: NextFu
     }
 }
 
+/**
+ * Handle todo find requests.
+ * @param req Request
+ * @param res Response
+ * @param next Next handler
+ */
 export const find: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const schema = Joi.object({
@@ -30,6 +42,12 @@ export const find: Handler = async (req: Request, res: Response, next: NextFunct
     }
 }
 
+/**
+ * Handle todo creation requests.
+ * @param req Request
+ * @param res Response
+ * @param next Next handler
+ */
 export const create: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const schema = Joi.object({
@@ -48,6 +66,12 @@ export const create: Handler = async (req: Request, res: Response, next: NextFun
     }
 }
 
+/**
+ * Handle todo update requests.
+ * @param req Request
+ * @param res Response
+ * @param next Next handler
+ */
 export const update: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const querySchema = Joi.object({
@@ -75,6 +99,12 @@ export const update: Handler = async (req: Request, res: Response, next: NextFun
     }
 }
 
+/**
+ * Handle todo deletion requests.
+ * @param req Request
+ * @param res Response
+ * @param next Next handler
+ */
 export const deleteTodo: Handler = async (req: Request, res: Response, next: NextFunction) => {
     try {
         const querySchema = Joi.object({

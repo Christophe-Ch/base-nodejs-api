@@ -6,6 +6,9 @@ import logger from './logger';
 
 main().catch(err => logger.error(err));
 
+/**
+ * Server entrypoint.
+ */
 async function main(): Promise<void> {
     configDotenv({ path: path.resolve(__dirname, '../env/.env') });
 

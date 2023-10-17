@@ -1,5 +1,8 @@
 import { BaseError } from './base.error';
 
+/**
+ * Error used to indicate an email is already in use.
+ */
 export class AlreadyRegisteredError extends BaseError {
     constructor(private readonly email: string) {
         super();
@@ -11,7 +14,7 @@ export class AlreadyRegisteredError extends BaseError {
         };
     }
 
-    getStatus(): number {
+    getStatusCode(): number {
         return 400;
     }
 }
