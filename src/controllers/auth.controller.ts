@@ -62,3 +62,18 @@ export const refresh: Handler = async (req: Request, res: Response, next: NextFu
         next(err);
     }
 }
+
+/**
+ * Handle user deletion requests.
+ * @param req Request
+ * @param res Response
+ * @param next Next handler
+ */
+export const deleteAccount: Handler = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        await useCases.deleteUser(req.user!.id);
+        return res.status(204).send();
+    } catch (err) {
+        next(err);
+    }
+}
