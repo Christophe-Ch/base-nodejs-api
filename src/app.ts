@@ -18,7 +18,7 @@ function prepareApp(): Express {
     app.use(logHandler);
     app.use(express.json());
 
-    routers.forEach(router => {
+    routers.forEach((router) => {
         app.use(router.path, router.router);
     });
 
@@ -26,7 +26,9 @@ function prepareApp(): Express {
 
     setupAuth();
 
-    app.listen(process.env.APP_PORT, () => { logger.info(`Server listening on port ${process.env.APP_PORT}.`) });
+    app.listen(process.env.APP_PORT, () => {
+        logger.info(`Server listening on port ${process.env.APP_PORT}.`);
+    });
 
     return app;
 }

@@ -10,7 +10,10 @@ import bcrypt from 'bcrypt';
  * @param password Password
  * @returns The generated JWT and refresh tokens.
  */
-export const signup = async (email: string, password: string): Promise<ITokenResult> => {
+export const signup = async (
+    email: string,
+    password: string,
+): Promise<ITokenResult> => {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
         throw new AlreadyRegisteredError(email);
@@ -18,8 +21,8 @@ export const signup = async (email: string, password: string): Promise<ITokenRes
 
     const newUser = await User.create({
         email,
-        password: await bcrypt.hash(password, await getSalt())
+        password: await bcrypt.hash(password, await getSalt()),
     });
 
     return await generateToken(newUser);
-}
+};

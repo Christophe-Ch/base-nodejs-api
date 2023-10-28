@@ -9,5 +9,7 @@ export abstract class BaseError extends Error {
      * HTTP status code
      * @returns Status code
      */
-    getStatusCode(): number { return 500; }
+    getStatusCode(): number {
+        return 500;
+    }
 }

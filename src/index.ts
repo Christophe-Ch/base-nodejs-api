@@ -4,7 +4,7 @@ import { configDotenv } from 'dotenv';
 import path from 'path';
 import logger from './logger';
 
-main().catch(err => logger.error(err));
+main().catch((err) => logger.error(err));
 
 /**
  * Server entrypoint.

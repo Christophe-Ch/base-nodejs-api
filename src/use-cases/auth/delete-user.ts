@@ -3,7 +3,6 @@ import User from '../../models/User';
 import Todo from '../../models/Todo';
 import { UnauthorizedError } from '../../errors/unauthorized.error';
 
-
 /**
  * Delete a user.
  * @param id User ID
@@ -17,4 +16,4 @@ export const deleteUser = async (userId: string): Promise<void> => {
 
     await Todo.deleteMany({ userId });
     await userToDelete.deleteOne();
-}
+};

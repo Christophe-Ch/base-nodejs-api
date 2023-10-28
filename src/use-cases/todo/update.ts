@@ -1,5 +1,5 @@
 import { NotFoundError } from '../../errors/not-found.error';
-import Todo, { ITodo } from '../../models/Todo'
+import Todo, { ITodo } from '../../models/Todo';
 
 /**
  * Update a todo.
@@ -9,7 +9,12 @@ import Todo, { ITodo } from '../../models/Todo'
  * @param userId User ID
  * @returns The updated todo.
  */
-export const update = async (id: string, title: string, done: boolean, userId: string): Promise<ITodo> => {
+export const update = async (
+    id: string,
+    title: string,
+    done: boolean,
+    userId: string,
+): Promise<ITodo> => {
     const todo = await Todo.findById(id);
 
     if (!todo || todo.userId !== userId) {
@@ -22,4 +27,4 @@ export const update = async (id: string, title: string, done: boolean, userId: s
     await todo.save();
 
     return todo;
-}
+};

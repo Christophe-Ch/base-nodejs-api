@@ -9,14 +9,18 @@ import { ValidationError } from '../errors';
  * @param res Response
  * @param next Next handler
  */
-export const findAll: Handler = async (req: Request, res: Response, next: NextFunction) => {
+export const findAll: Handler = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+) => {
     try {
         const todos = await useCases.findAll(req.user!.id);
         res.json({ todos });
     } catch (err) {
         next(err);
     }
-}
+};
 
 /**
  * Handle todo find requests.
@@ -24,10 +28,14 @@ export const findAll: Handler = async (req: Request, res: Response, next: NextFu
  * @param res Response
  * @param next Next handler
  */
-export const find: Handler = async (req: Request, res: Response, next: NextFunction) => {
+export const find: Handler = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+) => {
     try {
         const schema = Joi.object({
-            id: Joi.string().length(24).required()
+            id: Joi.string().length(24).required(),
         });
         const { error, value } = schema.validate(req.params);
         if (error) {
@@ -40,7 +48,7 @@ export const find: Handler = async (req: Request, res: Response, next: NextFunct
     } catch (err) {
         next(err);
     }
-}
+};
 
 /**
  * Handle todo creation requests.
@@ -48,10 +56,14 @@ export const find: Handler = async (req: Request, res: Response, next: NextFunct
  * @param res Response
  * @param next Next handler
  */
-export const create: Handler = async (req: Request, res: Response, next: NextFunction) => {
+export const create: Handler = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+) => {
     try {
         const schema = Joi.object({
-            title: Joi.string().max(255).required()
+            title: Joi.string().max(255).required(),
         });
         const { error, value } = schema.validate(req.body);
         if (error) {
@@ -64,7 +76,7 @@ export const create: Handler = async (req: Request, res: Response, next: NextFun
     } catch (err) {
         next(err);
     }
-}
+};
 
 /**
  * Handle todo update requests.
@@ -72,10 +84,14 @@ export const create: Handler = async (req: Request, res: Response, next: NextFun
  * @param res Response
  * @param next Next handler
  */
-export const update: Handler = async (req: Request, res: Response, next: NextFunction) => {
+export const update: Handler = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+) => {
     try {
         const querySchema = Joi.object({
-            id: Joi.string().length(24).required()
+            id: Joi.string().length(24).required(),
         });
         let { error, value } = querySchema.validate(req.params);
         if (error) {
@@ -84,20 +100,25 @@ export const update: Handler = async (req: Request, res: Response, next: NextFun
 
         const bodySchema = Joi.object({
             title: Joi.string().max(255),
-            done: Joi.bool()
+            done: Joi.bool(),
         });
         ({ error, value } = bodySchema.validate(req.body));
         if (error) {
             throw new ValidationError(error);
         }
 
-        const todo = await useCases.update(req.params.id, value.title, value.done, req.user!.id);
+        const todo = await useCases.update(
+            req.params.id,
+            value.title,
+            value.done,
+            req.user!.id,
+        );
 
         return res.status(200).json({ todo });
     } catch (err) {
         next(err);
     }
-}
+};
 
 /**
  * Handle todo deletion requests.
@@ -105,10 +126,14 @@ export const update: Handler = async (req: Request, res: Response, next: NextFun
  * @param res Response
  * @param next Next handler
  */
-export const deleteTodo: Handler = async (req: Request, res: Response, next: NextFunction) => {
+export const deleteTodo: Handler = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+) => {
     try {
         const querySchema = Joi.object({
-            id: Joi.string().length(24).required()
+            id: Joi.string().length(24).required(),
         });
         const { error, value } = querySchema.validate(req.params);
         if (error) {
@@ -121,4 +146,4 @@ export const deleteTodo: Handler = async (req: Request, res: Response, next: Nex
     } catch (err) {
         next(err);
     }
-}
+};

@@ -1,5 +1,5 @@
 import { NotFoundError } from '../../errors/not-found.error';
-import Todo from '../../models/Todo'
+import Todo from '../../models/Todo';
 
 /**
  * Delete a todo for a user.
@@ -14,4 +14,4 @@ export const deleteTodo = async (id: string, userId: string): Promise<void> => {
     }
 
     await todo.deleteOne();
-}
+};

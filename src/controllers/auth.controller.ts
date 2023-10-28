@@ -12,7 +12,7 @@ import { ValidationError } from '../errors';
 export const login: Handler = async (req: Request, res: Response) => {
     const result = await useCases.generateToken(req.user as IUser);
     res.json(result);
-}
+};
 
 /**
  * Handle signup requests.
@@ -20,11 +20,15 @@ export const login: Handler = async (req: Request, res: Response) => {
  * @param res Response
  * @param next Next handler
  */
-export const signup: Handler = async (req: Request, res: Response, next: NextFunction) => {
+export const signup: Handler = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+) => {
     try {
         const schema = Joi.object({
             email: Joi.string().email().required(),
-            password: Joi.string().min(8).max(255).required()
+            password: Joi.string().min(8).max(255).required(),
         });
         const { error, value } = schema.validate(req.body);
         if (error) {
@@ -37,7 +41,7 @@ export const signup: Handler = async (req: Request, res: Response, next: NextFun
     } catch (err) {
         next(err);
     }
-}
+};
 
 /**
  * Handle JWT refresh requests.
@@ -45,7 +49,11 @@ export const signup: Handler = async (req: Request, res: Response, next: NextFun
  * @param res Response
  * @param next Next handler
  */
-export const refresh: Handler = async (req: Request, res: Response, next: NextFunction) => {
+export const refresh: Handler = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+) => {
     try {
         const schema = Joi.object({
             refreshToken: Joi.string().uuid().required(),
@@ -61,7 +69,7 @@ export const refresh: Handler = async (req: Request, res: Response, next: NextFu
     } catch (err) {
         next(err);
     }
-}
+};
 
 /**
  * Handle user deletion requests.
@@ -69,11 +77,15 @@ export const refresh: Handler = async (req: Request, res: Response, next: NextFu
  * @param res Response
  * @param next Next handler
  */
-export const deleteAccount: Handler = async (req: Request, res: Response, next: NextFunction) => {
+export const deleteAccount: Handler = async (
+    req: Request,
+    res: Response,
+    next: NextFunction,
+) => {
     try {
         await useCases.deleteUser(req.user!.id);
         return res.status(204).send();
     } catch (err) {
         next(err);
     }
-}
+};

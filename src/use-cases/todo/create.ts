@@ -1,4 +1,4 @@
-import Todo, { ITodo } from '../../models/Todo'
+import Todo, { ITodo } from '../../models/Todo';
 
 /**
  * Create a new todo for a user.
@@ -10,8 +10,8 @@ export const create = async (title: string, userId: string): Promise<ITodo> => {
     const todo = await Todo.create({
         title,
         done: false,
-        userId
+        userId,
     });
 
     return todo;
-}
+};

@@ -1,5 +1,5 @@
 import { NotFoundError } from '../../errors/not-found.error';
-import Todo, { ITodo } from '../../models/Todo'
+import Todo, { ITodo } from '../../models/Todo';
 
 /**
  * Find a todo.
@@ -7,7 +7,10 @@ import Todo, { ITodo } from '../../models/Todo'
  * @param userId User ID
  * @returns The todo.
  */
-export const find = async (id: string, userId: string): Promise<ITodo | null> => {
+export const find = async (
+    id: string,
+    userId: string,
+): Promise<ITodo | null> => {
     const todo = await Todo.findById(id);
 
     if (!todo || todo.userId !== userId) {
@@ -15,4 +18,4 @@ export const find = async (id: string, userId: string): Promise<ITodo | null> =>
     }
 
     return todo;
-}
+};

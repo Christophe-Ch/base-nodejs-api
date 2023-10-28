@@ -14,6 +14,6 @@ export const errorHandler = (err: Error, _: Request, res: Response) => {
     }
 
     res.status(500).json({
-        errors: ['An error has occured. Try again later.']
+        errors: ['An error has occured. Try again later.'],
     });
-}
+};
