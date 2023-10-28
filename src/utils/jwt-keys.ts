@@ -8,7 +8,7 @@ const loadKey = (keyName: string): string => {
     try {
         return fs.readFileSync(keyPath, 'utf8');
     } catch (error) {
-        throw new Error(`Failed to load ${keyName}: ${error.message}`);
+        throw new Error(`Failed to load ${keyName}`);
     }
 };
 
