@@ -5,6 +5,7 @@ import logger from './logger';
 import { logHandler } from './middlewares/log.middleware';
 import { setupAuth } from './auth/setup';
 import mongoSanitize from 'express-mongo-sanitize';
+import helmet from 'helmet';
 
 /**
  * Create Express server.
@@ -14,6 +15,7 @@ import mongoSanitize from 'express-mongo-sanitize';
 function prepareApp(): Express {
     const app = express();
 
+    app.use(helmet());
     app.use(mongoSanitize());
     app.use(logHandler);
     app.use(express.json());
