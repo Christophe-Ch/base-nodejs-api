@@ -4,13 +4,23 @@ Minimalistic implementation of a Node.js API with basic features and auth / Todo
 
 ## Table of contents
 
-- [Project Setup 🔧](#project-setup-)
-  - [Database](#database)
-  - [API](#api)
-- [Running the project 🚀](#running-the-project-)
-  - [Watch / Debug (recommended for development)](#watch--debug-recommended-for-development)
-  - [Using Docker (recommended for deployment / orchestration)](#using-docker-recommended-for-deployment--orchestration)
-  - [Build and Run (without containerization)](#build-and-run-without-containerization)
+- [Base Node.js API](#base-nodejs-api)
+  - [Table of contents](#table-of-contents)
+  - [Project Setup 🔧](#project-setup-)
+    - [Database](#database)
+    - [API](#api)
+  - [Running the project 🚀](#running-the-project-)
+    - [Watch / Debug (recommended for development)](#watch--debug-recommended-for-development)
+    - [Using Docker (recommended for deployment / orchestration)](#using-docker-recommended-for-deployment--orchestration)
+    - [Build and Run (without containerization)](#build-and-run-without-containerization)
+  - [Features ✨](#features-)
+    - [Express](#express)
+    - [Logging](#logging)
+    - [Authentication](#authentication)
+    - [Todos](#todos)
+    - [Security](#security)
+    - [ESLint / Prettier / Husky](#eslint--prettier--husky)
+
 
 
 ## Project Setup 🔧
@@ -86,3 +96,48 @@ You can then run the project using :
 ```
 npm run start
 ```
+
+## Features ✨
+
+Here's an overview of the features.
+
+### Express
+
+The API runs using Express.js.
+
+### Logging
+
+Logging is featured in this API using Winston. By default, two files are created :
+- logs/error.log : Aggregates all errors thrown during runtime.
+- logs/combined.log : Aggregates all logs that are at least _info_.
+
+When running in a development environment, all logs are also appended to the console output.
+
+### MongoDB
+
+This API connects to a MongoDB database using mongoose and provides a template Todo model.
+
+### Authentication
+
+Authentication is managed using [Passport.js](https://www.passportjs.org/) and the [passport-jwt](https://www.passportjs.org/packages/passport-jwt/) strategy.
+
+Authentication capabilities include :
+- Log in
+- Sign up
+- Refresh JWT token
+- Delete account
+- Restricting routes to logged in requests
+
+### Todos
+
+This API provides endpoints for CRUD operations on Todo objects. Todos belong to users and trying to access other's throws an unauthorized response.
+
+### Security
+
+This API is protected my [express-mongo-sanitize](https://www.npmjs.com/package/express-mongo-sanitize) and [helmet](https://www.npmjs.com/package/helmet) middlewares to respectively :
+- sanitize requests and avoid nosql injections;
+- add /check security related HTTP headers (using **helmet**'s base configuration);
+
+### ESLint / Prettier / Husky
+
+Base configurations for eslint and prettier are provided. Husky has also been installed to check for linting errors before committing and formatting code on commit.
