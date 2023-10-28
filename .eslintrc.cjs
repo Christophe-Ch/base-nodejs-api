@@ -4,4 +4,11 @@ module.exports = {
     parser: '@typescript-eslint/parser',
     plugins: ['@typescript-eslint'],
     root: true,
+    ignorePatterns: [
+        'node-modules/',
+        'dist/',
+        '.vscode/',
+        '.husky/',
+        'logs/'
+    ]
 };
