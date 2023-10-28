@@ -7,6 +7,7 @@ import {
 import { Strategy as LocalStrategy } from 'passport-local';
 import User from '../models/User';
 import bcrypt from 'bcrypt';
+import { PUBLIC_KEY } from '../utils/jwt-keys';
 
 /**
  * Create the strategy used for checking and parsing the JWT sent by the client.
@@ -14,7 +15,7 @@ import bcrypt from 'bcrypt';
 function setupJwtStrategy(): void {
     const strategyOptions: StrategyOptions = {
         jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-        secretOrKey: process.env.JWT_SECRET,
+        secretOrKey: PUBLIC_KEY,
         issuer: process.env.JWT_ISSUER,
         audience: process.env.JWT_AUDIENCE,
     };
