@@ -16,6 +16,7 @@ function setupJwtStrategy(): void {
     const strategyOptions: StrategyOptions = {
         jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
         secretOrKey: PUBLIC_KEY,
+        algorithms: [process.env.JWT_ALGORITHM!],
         issuer: process.env.JWT_ISSUER,
         audience: process.env.JWT_AUDIENCE,
     };
