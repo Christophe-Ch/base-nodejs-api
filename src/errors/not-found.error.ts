@@ -8,7 +8,7 @@ export class NotFoundError extends BaseError {
         super();
     }
 
-    toJson(): any {
+    toJson(): object {
         return {
             error: `No item found for id ${this.id}.`,
         };

@@ -1,7 +1,6 @@
 import { NotFoundError } from '../../errors/not-found.error';
 import User from '../../models/User';
 import Todo from '../../models/Todo';
-import { UnauthorizedError } from '../../errors/unauthorized.error';
 
 /**
  * Delete a user.

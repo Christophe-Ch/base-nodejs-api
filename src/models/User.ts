@@ -4,7 +4,7 @@ export interface IUser {
     id: string;
     email: string;
     password: string;
-    refreshToken: String;
+    refreshToken: string;
 }
 
 const userSchema = new Schema<IUser>({

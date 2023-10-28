@@ -8,7 +8,7 @@ export class UnauthorizedError extends BaseError {
         super();
     }
 
-    toJson(): any {
+    toJson(): object {
         return {
             error: `Unauthorized.`,
         };

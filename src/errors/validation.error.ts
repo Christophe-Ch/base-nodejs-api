@@ -9,7 +9,7 @@ export class ValidationError extends BaseError {
         super();
     }
 
-    toJson(): any {
+    toJson(): object {
         return {
             error: 'Provided input was incorrect.',
             details: this.error.details.map((detail) => detail.message),

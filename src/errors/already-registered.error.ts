@@ -8,7 +8,7 @@ export class AlreadyRegisteredError extends BaseError {
         super();
     }
 
-    toJson(): any {
+    toJson(): object {
         return {
             error: `An account already exists for email ${this.email}.`,
         };

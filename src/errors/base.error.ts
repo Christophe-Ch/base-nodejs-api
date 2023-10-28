@@ -3,7 +3,7 @@ export abstract class BaseError extends Error {
      * Get the formatted error.
      * @returns Formatted error;
      */
-    abstract toJson(): any;
+    abstract toJson(): object;
 
     /**
      * HTTP status code
